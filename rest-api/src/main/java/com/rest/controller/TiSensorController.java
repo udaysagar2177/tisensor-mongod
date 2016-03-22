@@ -18,8 +18,11 @@ public class TiSensorController {
 
     @Autowired
     TiSensorService tiSensorService;
+    private Logger logger;
 
-    private Logger logger = LoggerFactory.getLogger(TiSensorController.class);
+    public TiSensorController(){
+        logger = LoggerFactory.getLogger(TiSensorController.class);
+    }
 
     @RequestMapping(value = "/datapoint", method = RequestMethod.POST,
             consumes = {"application/json"})
