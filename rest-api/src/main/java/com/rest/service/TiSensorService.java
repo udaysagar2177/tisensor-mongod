@@ -7,6 +7,6 @@ import com.rest.model.TiSensorDatapoint;
  */
 public interface TiSensorService {
     boolean isRegisteredId(String tiSensorId);
-    String getUserId();
+    String getUserId(TiSensorDatapoint datapoint);
     void save(TiSensorDatapoint datapoint);
 }

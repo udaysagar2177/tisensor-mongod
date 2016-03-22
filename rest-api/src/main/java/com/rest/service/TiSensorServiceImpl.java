@@ -1,7 +1,6 @@
 package com.rest.service;
 
 import com.rest.model.TiSensorDatapoint;
-import com.rest.model.TiSensorDatapointWithUserID;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,25 +16,13 @@ public class TiSensorServiceImpl implements TiSensorService {
         return false;
     }
 
-    public String getUserId(){
+    public String getUserId(TiSensorDatapoint datapoint){
+        // Get the userId from Database
         return "user1";
     }
 
-    public TiSensorDatapointWithUserID extendDataPoint(
-            String userId,
-            TiSensorDatapoint datapoint){
-        TiSensorDatapointWithUserID newDatapoint = new TiSensorDatapointWithUserID();
-        newDatapoint.setUserId(userId);
-        newDatapoint.setTemperature(datapoint.getTemperature());
-        newDatapoint.setLight(datapoint.getLight());
-        newDatapoint.setTiSensorId(datapoint.getTiSensorId());
-        newDatapoint.setTimestamp(datapoint.getTimestamp());
-        return newDatapoint;
-    }
-
     public void save(TiSensorDatapoint datapoint){
-        String userId = getUserId();
-        extendDataPoint(userId, datapoint);
+        datapoint.setUserId(getUserId(datapoint));
         // save Datapoint
     }
 }

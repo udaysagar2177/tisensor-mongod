@@ -1,13 +1,25 @@
 package com.rest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Created by uday on 3/21/16.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TiSensorDatapoint {
     private double temperature;
     private double light;
     private long timestamp;
     private String tiSensorId;
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public double getLight() {
         return light;
