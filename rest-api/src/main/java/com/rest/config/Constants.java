@@ -22,6 +22,7 @@ public class Constants {
             "TISENSOR_SIMULATION_";
     public static final String SIMULATED_TISENSOR_USER_HANDLE =
             "TISENSOR_SIMULATION_USER_";
+    public static final int SIMULATED_TISENSOR_COUNT = 3;
 
     static {
         if(System.getenv("environment") == "production") {

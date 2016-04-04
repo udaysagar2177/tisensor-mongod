@@ -1,5 +1,6 @@
 package com.load;
 
+import com.rest.config.Constants;
 import com.rest.model.TiSensorDatapoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ public class RunnableTiSensor implements Runnable {
     private String tiSensorId;
     private Logger logger;
     private RestTemplate restTemplate;
-    private String REST_URI = "http://localhost:8080/datapoint";
 
     public RunnableTiSensor(String tiSensorId){
         this.tiSensorId = tiSensorId;
@@ -38,12 +38,14 @@ public class RunnableTiSensor implements Runnable {
                 logger.info("Thread: "+tiSensorId+" Interrupted!"+e);
             }
         }
-
     }
 
     private void sendDataPoint(TiSensorDatapoint datapoint){
         try{
-            restTemplate.postForLocation(REST_URI, datapoint);
+            logger.debug("Sending datapoint to "+ Constants.DATAPOINT_REST_URL);
+            restTemplate.postForLocation(
+                    Constants.DATAPOINT_REST_URL,
+                    datapoint);
         }catch(Exception e){
             logger.error("Failed to send datapoint! "+e);
         }

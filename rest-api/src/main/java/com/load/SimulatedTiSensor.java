@@ -1,5 +1,7 @@
 package com.load;
 
+import com.rest.config.Constants;
+
 import java.util.HashMap;
 
 /**
@@ -7,9 +9,9 @@ import java.util.HashMap;
  */
 public class SimulatedTiSensor {
     public static void main(String args[]){
-        int tiSensorsCount = 3;
-        for(int i=0; i<tiSensorsCount; i++){
-            new Thread(new RunnableTiSensor("SIMULATED_"+i)).start();
+        for(int i=0; i<Constants.SIMULATED_TISENSOR_COUNT; i++){
+            new Thread(new RunnableTiSensor(
+                    Constants.SIMULATED_TISENSOR_ID_HANDLE+i)).start();
         }
     }
 }
