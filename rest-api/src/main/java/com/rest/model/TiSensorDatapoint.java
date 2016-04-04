@@ -1,10 +1,13 @@
 package com.rest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Created by uday on 3/21/16.
  */
+
+@Document(collection = "tiSensor")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TiSensorDatapoint {
     private double temperature;
