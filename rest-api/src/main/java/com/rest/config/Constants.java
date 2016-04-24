@@ -22,7 +22,7 @@ public class Constants {
     public static final int SIMULATED_TISENSOR_COUNT = 3;
 
     static {
-        if(System.getenv("environment") == "production") {
+        if(System.getenv("environment").equals("production")) {
             DATABASE_NAME      = System.getenv("DATABASE_NAME");
             DATABASE_USERNAME  = System.getenv("DATABASE_USERNAME");
             DATABASE_PASSWORD  = System.getenv("DATABASE_PASSWORD");
