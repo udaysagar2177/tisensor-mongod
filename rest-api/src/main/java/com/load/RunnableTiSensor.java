@@ -2,12 +2,13 @@ package com.load;
 
 import com.rest.config.Constants;
 import com.rest.model.TiSensorDatapoint;
+import com.rest.model.TiSensorHumidity;
+import com.rest.model.TiSensorLight;
+import com.rest.model.TiSensorTemperature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -21,17 +22,30 @@ public class RunnableTiSensor implements Runnable {
     public RunnableTiSensor(String tiSensorId){
         this.tiSensorId = tiSensorId;
         logger = LoggerFactory.getLogger(
-                RunnableTiSensor.class+", "+tiSensorId);
+                RunnableTiSensor.class);
         restTemplate = new RestTemplate();
     }
 
     public void run(){
         Random random = new Random();
-        int temperatureStart = 15 + random.nextInt(10);
-        TiSensorDatapoint datapoint = new TiSensorDatapoint();
+
+        TiSensorTemperature temperature = new TiSensorTemperature();
+        TiSensorLight light = new TiSensorLight();
+        TiSensorHumidity humidity = new TiSensorHumidity();
+        temperature.setTiSensorId(this.tiSensorId);
+        light.setTiSensorId(this.tiSensorId);
+        humidity.setTiSensorId(this.tiSensorId);
+        temperature.setTimestamp(System.currentTimeMillis());
+        light.setTimestamp(System.currentTimeMillis());
+        humidity.setTimestamp(System.currentTimeMillis());
+
         while(true){
-            prepareDataPoint(random, temperatureStart, datapoint);
-            sendDataPoint(datapoint);
+            temperature.setTemperature(15+random.nextDouble());
+            sendDataPoint(temperature, "/temperature");
+            light.setLight(5+random.nextDouble());
+            sendDataPoint(light, "/light");
+            humidity.setHumidity(50+random.nextDouble());
+            sendDataPoint(humidity, "/humidity");
             try {
                 Thread.sleep(1000);
             }catch(Exception e){
@@ -40,22 +54,15 @@ public class RunnableTiSensor implements Runnable {
         }
     }
 
-    private void sendDataPoint(TiSensorDatapoint datapoint){
+    private void sendDataPoint(TiSensorDatapoint datapoint, String restUrl){
         try{
-            logger.debug("Sending datapoint to "+ Constants.DATAPOINT_REST_URL);
-            restTemplate.postForLocation(
-                    Constants.DATAPOINT_REST_URL,
+            logger.debug("Sending datapoint " +datapoint.getCollectionName()
+                    +" to "+ Constants
+                    .DATAPOINT_REST_URL+restUrl);
+            restTemplate.postForLocation(Constants.DATAPOINT_REST_URL+restUrl,
                     datapoint);
         }catch(Exception e){
             logger.error("Failed to send datapoint! "+e);
         }
-    }
-
-    private void prepareDataPoint(Random random, int temperatureStart,
-                                  TiSensorDatapoint datapoint){
-        datapoint.setTimestamp(System.currentTimeMillis());
-        datapoint.setTemperature(temperatureStart + random.nextDouble());
-        datapoint.setLight(random.nextInt(5) + random.nextDouble());
-        datapoint.setTiSensorId(this.tiSensorId);
     }
 }

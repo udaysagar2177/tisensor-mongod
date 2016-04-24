@@ -3,15 +3,12 @@ package com.rest.service;
 import com.rest.config.Constants;
 import com.rest.model.TiSensorDatapoint;
 import com.rest.model.User;
-import com.rest.repository.MongoTiSensorDatapointRepository;
 import com.rest.repository.TiSensorDatapointRepository;
 import com.rest.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by uday on 3/21/16.
