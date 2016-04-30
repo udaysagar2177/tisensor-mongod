@@ -37,7 +37,8 @@ public class TiSensorController {
             consumes = {"application/json"})
     public ResponseEntity<Void> checkAndInsertTemperature(
             @RequestBody TiSensorTemperature temperature){
-        logger.debug("Received temperature datapoint "+temperature.toString());
+        logger.debug("Received temperature datapoint "+temperature.toString()
+                +" from "+temperature.getUserId());
         return processDatapoint(temperature);
     }
 
@@ -46,7 +47,8 @@ public class TiSensorController {
             consumes = {"application/json"})
     public ResponseEntity<Void> checkAndInsertLight(
             @RequestBody TiSensorLight light){
-        logger.debug("Received light datapoint "+light.toString());
+        logger.debug("Received light datapoint "+light.toString()+" from "+light
+                .getUserId());
         return processDatapoint(light);
     }
 
@@ -55,7 +57,8 @@ public class TiSensorController {
             consumes = {"application/json"})
     public ResponseEntity<Void> checkAndInsertHumidity(
             @RequestBody TiSensorHumidity humidity){
-        logger.debug("Received humidity datapoint "+humidity.toString());
+        logger.debug("Received humidity datapoint "+humidity.toString()+" " +
+                "from "+humidity.getUserId());
         return processDatapoint(humidity);
     }
 

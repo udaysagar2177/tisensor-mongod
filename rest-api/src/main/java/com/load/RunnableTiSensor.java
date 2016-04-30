@@ -21,8 +21,7 @@ public class RunnableTiSensor implements Runnable {
 
     public RunnableTiSensor(String tiSensorId){
         this.tiSensorId = tiSensorId;
-        logger = LoggerFactory.getLogger(
-                RunnableTiSensor.class);
+        logger = LoggerFactory.getLogger(RunnableTiSensor.class);
         restTemplate = new RestTemplate();
     }
 
