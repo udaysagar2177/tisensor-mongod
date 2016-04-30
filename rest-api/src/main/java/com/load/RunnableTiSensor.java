@@ -35,9 +35,9 @@ public class RunnableTiSensor implements Runnable {
         temperature.setTiSensorId(this.tiSensorId);
         light.setTiSensorId(this.tiSensorId);
         humidity.setTiSensorId(this.tiSensorId);
-        temperature.setTimestamp(System.currentTimeMillis());
-        light.setTimestamp(System.currentTimeMillis());
-        humidity.setTimestamp(System.currentTimeMillis());
+        temperature.setTimestamp("22:00:00");
+        light.setTimestamp("22:00:00");
+        humidity.setTimestamp("22:00:00");
 
         while(true){
             temperature.setTemperature(15+random.nextDouble());

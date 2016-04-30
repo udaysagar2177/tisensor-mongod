@@ -2,9 +2,9 @@ package com.rest.service;
 
 import com.rest.config.Constants;
 import com.rest.model.TiSensorDatapoint;
-import com.rest.model.User;
+import com.rest.model.UserProfile;
 import com.rest.repository.TiSensorDatapointRepository;
-import com.rest.repository.UserRepository;
+import com.rest.repository.UserProfileRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class TiSensorServiceImpl implements TiSensorService {
     TiSensorDatapointRepository tiSensorDatapointRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UserProfileRepository userProfileRepository;
 
     public boolean isRegisteredIdAttachUserId(TiSensorDatapoint datapoint) {
         if (datapoint.getTiSensorId().startsWith(
@@ -31,7 +31,7 @@ public class TiSensorServiceImpl implements TiSensorService {
             logger.info("Datapoint received from " + datapoint.getTiSensorId());
             createTiSensorSimulationUserIfDoesNotExists(datapoint);
         }
-        String userId = userRepository.getUserId(datapoint.getTiSensorId());
+        String userId = userProfileRepository.getUserId(datapoint.getTiSensorId());
         if(userId == null){
             return false;
         }
@@ -41,7 +41,7 @@ public class TiSensorServiceImpl implements TiSensorService {
 
     private void createTiSensorSimulationUserIfDoesNotExists(
             TiSensorDatapoint datapoint){
-        if(userRepository.getUserId(datapoint.getTiSensorId()) != null){
+        if(userProfileRepository.getUserId(datapoint.getTiSensorId()) != null){
             existingUsers++;
             return;
         }
@@ -50,11 +50,13 @@ public class TiSensorServiceImpl implements TiSensorService {
                         .substring(Constants.SIMULATED_TISENSOR_ID_HANDLE
                                 .length()));
         if(tiSensorSimulation >= existingUsers) {
-            User user = new User();
+            UserProfile userProfile = new UserProfile();
+            UserProfile.User user = new UserProfile.User();
             user.setUserId(Constants.SIMULATED_TISENSOR_USER_HANDLE+
                     tiSensorSimulation);
             user.setTiSensorId(datapoint.getTiSensorId());
-            userRepository.createUser(user);
+            userProfile.setUser(user);
+            userProfileRepository.createSimulationUser(userProfile);
             existingUsers++;
         }
     }

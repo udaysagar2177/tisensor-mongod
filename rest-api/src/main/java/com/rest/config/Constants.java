@@ -22,7 +22,9 @@ public class Constants {
     public static final int SIMULATED_TISENSOR_COUNT = 3;
 
     static {
-        if(System.getenv("environment").equals("production")) {
+        System.out.print("uday"+System.getenv("environment"));
+        if(System.getenv("environment") != null &&
+                System.getenv("environment").equals("production")) {
             DATABASE_NAME      = System.getenv("DATABASE_NAME");
             DATABASE_USERNAME  = System.getenv("DATABASE_USERNAME");
             DATABASE_PASSWORD  = System.getenv("DATABASE_PASSWORD");
@@ -36,9 +38,9 @@ public class Constants {
             DATABASE_NAME      = "mydb";
             DATABASE_USERNAME  = "";
             DATABASE_PASSWORD  = "";
-            DATABASE_HOSTNAME  = "192.168.10.2";
+            DATABASE_HOSTNAME  = "52.73.142.19";
             DATABASE_PORT      = 27017;
-            DATAPOINT_REST_URL = "http://localhost:8080/tisensor";
+            DATAPOINT_REST_URL = "http://52.73.142.19:8081/tisensor";
             NUMBER_OF_TISENSOR_SIMULATIONS = 3;
 
         }

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TiSensorHumidity implements TiSensorDatapoint {
     private double humidity;
-    private long timestamp;
+    private String timestamp;
     private String tiSensorId;
     private String userId;
     private String collection = "tiSensorHumidity";
@@ -26,11 +26,11 @@ public class TiSensorHumidity implements TiSensorDatapoint {
         this.humidity = humidity;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
