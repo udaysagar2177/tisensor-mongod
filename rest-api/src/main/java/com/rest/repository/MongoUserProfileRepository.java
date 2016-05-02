@@ -38,13 +38,14 @@ public class MongoUserProfileRepository implements UserProfileRepository {
             logger.error("Unable to get userId for given tiSensorId "+e);
         }
 
-        if(userProfile.isEmpty()){
+        if(userProfile == null){
             return null;
         }
         if(userProfile.size() > 1){
             logger.error("Multiple users "+userProfile+
                     " with same tisensorid "+tiSensorId+" detected");
         }
+        logger.debug(userProfile.toString());
         return userProfile.get(0).getUser().getUserId();
     }
 }
