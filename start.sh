@@ -1,6 +1,8 @@
 #!/bin/bash
 set -xe
 
+# This is just for a local run, it will create a mongodb database
+
 function stop_and_remove_container(){
         # Stop and remove container
         if [[ $(docker ps -a | grep "$1") ]]; then
@@ -11,6 +13,9 @@ function stop_and_remove_container(){
 }
 
 stop_and_remove_container "rest_api"
+stop_and_remove_container "mongodb"
+
+docker run -d --name mongodb mongo
 
 docker run \
 -it \

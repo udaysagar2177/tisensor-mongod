@@ -38,7 +38,7 @@ public class MongoUserProfileRepository implements UserProfileRepository {
             logger.error("Unable to get userId for given tiSensorId "+e);
         }
 
-        if(userProfile == null){
+        if(userProfile == null || userProfile.size() == 0){
             return null;
         }
         if(userProfile.size() > 1){
