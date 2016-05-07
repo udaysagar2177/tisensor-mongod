@@ -1,0 +1,23 @@
+sudo: required  
+services:  
+  - docker
+
+branch:
+  only:
+    - master
+
+env:
+  global:
+    - REPO=udaysagar/smacrobs_tisensor_rest
+    - TAG="latest"
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+script:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - docker build -t $REPO:$COMMIT .
+
+after_success:
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
