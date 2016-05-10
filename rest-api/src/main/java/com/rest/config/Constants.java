@@ -22,7 +22,6 @@ public class Constants {
     public static final int SIMULATED_TISENSOR_COUNT = 3;
 
     static {
-        System.out.print("uday"+System.getenv("environment"));
         if(System.getenv("environment") != null &&
                 System.getenv("environment").equals("production")) {
             DATABASE_NAME      = System.getenv("DATABASE_NAME");
@@ -32,8 +31,11 @@ public class Constants {
             DATABASE_PORT      = Integer.parseInt(System.getenv(
                                                         "DATABASE_PORT"));
             DATAPOINT_REST_URL = System.getenv("DATAPOINT_REST_URL");
-            NUMBER_OF_TISENSOR_SIMULATIONS = Integer.parseInt(System.getenv(
-                    "NUMBER_OF_TISENSOR_SIMULATIONS"));
+            if(System.getenv("NUMBER_OF_TISENSOR_SIMULATIONS") == null)
+                NUMBER_OF_TISENSOR_SIMULATIONS = 3;
+            else
+                NUMBER_OF_TISENSOR_SIMULATIONS = Integer.parseInt(
+                        System.getenv("NUMBER_OF_TISENSOR_SIMULATIONS"));
         }else {
             DATABASE_NAME      = "mydb";
             DATABASE_USERNAME  = "";
